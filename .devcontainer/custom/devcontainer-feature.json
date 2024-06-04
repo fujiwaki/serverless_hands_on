@@ -1,0 +1,9 @@
+{
+  "id": "custom",
+  "version": "0.1.0",
+  "name": "custom",
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/devcontainers/features/node"
+  ]
+}

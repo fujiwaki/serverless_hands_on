@@ -1,0 +1,104 @@
+[project]
+name = "chat"
+version = "0.1.0"
+description = "chat service"
+dependencies = []
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = [
+    "aws-cdk-lib",
+    "aws-cdk-aws-lambda-python-alpha",
+    "boto3-stubs[essential]",
+    "constructs",
+    "jupyter",
+    "mkdocs",
+    "mkdocs-gen-files",
+    "mkdocs-literate-nav",
+    "mkdocs-material",
+    "mkdocs-section-index",
+    "mkdocs-swagger-ui-tag",
+    "mkdocstrings[python]",
+    "moto[all]",
+    "mypy",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "pytest-env",
+    "pytest-xdist",
+    "pyyaml",
+    "ruff",
+    "types-pyyaml",
+]
+
+[tool.rye.scripts]
+doc = "mkdocs serve"
+
+[tool.rye.workspace]
+members = ["src/core"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN002", # missing-type-args
+    "ANN003", # missing-type-kwargs
+    "ANN101", # missing-type-self
+    "ANN102", # missing-type-cls
+
+    # for formatter
+    "W191",
+    "E111",
+    "E114",
+    "E117",
+    "D206",
+    "D300",
+    "Q000",
+    "Q001",
+    "Q002",
+    "Q003",
+    "COM812",
+    "COM819",
+    "ISC001",
+    "ISC002",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "D104", # undocumented-public-package
+]
+"tests/*" = [
+    "S101", # assert
+    "S105", # hardcoded-password-string
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "-vv",
+    "--cov=src",
+    "--cov-report=html:tests/coverage",
+    "-n",
+    "auto",
+]
+
+[tool.pytest_env]
+SERVICE_NAME = "chat"
+TABLE_NAME = "chat"
+AWS_DEFAULT_REGION = "ap-northeast-1"
+
+[tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]
