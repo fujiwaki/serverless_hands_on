@@ -41,9 +41,10 @@ aws-cdk-asset-node-proxy-agent-v6==2.0.3
 aws-cdk-aws-lambda-python-alpha==2.144.0a0
 aws-cdk-lib==2.144.0
     # via aws-cdk-aws-lambda-python-alpha
+aws-lambda-powertools==2.38.1
 aws-sam-translator==1.89.0
     # via cfn-lint
-aws-xray-sdk==2.13.1
+aws-xray-sdk==2.14.0
     # via moto
 babel==2.15.0
     # via jupyterlab-server
@@ -53,11 +54,11 @@ beautifulsoup4==4.12.3
     # via nbconvert
 bleach==6.1.0
     # via nbconvert
-boto3==1.34.118
+boto3==1.34.119
     # via aws-sam-translator
     # via moto
-boto3-stubs==1.34.118
-botocore==1.34.118
+boto3-stubs==1.34.119
+botocore==1.34.119
     # via aws-xray-sdk
     # via boto3
     # via moto
@@ -93,7 +94,7 @@ constructs==10.3.0
     # via aws-cdk-lib
 coverage==7.5.3
     # via pytest-cov
-cryptography==42.0.7
+cryptography==42.0.8
     # via joserfc
     # via moto
 debugpy==1.8.1
@@ -116,6 +117,7 @@ filelock==3.14.0
     # via virtualenv
 fqdn==1.5.1
     # via jsonschema
+freezegun==1.5.1
 ghp-import==2.1.0
     # via mkdocs
 graphql-core==3.2.3
@@ -300,7 +302,7 @@ mypy-boto3-cloudformation==1.34.111
     # via boto3-stubs
 mypy-boto3-dynamodb==1.34.114
     # via boto3-stubs
-mypy-boto3-ec2==1.34.114
+mypy-boto3-ec2==1.34.119
     # via boto3-stubs
 mypy-boto3-lambda==1.34.77
     # via boto3-stubs
@@ -325,7 +327,7 @@ nest-asyncio==1.6.0
     # via ipykernel
 networkx==3.3
     # via cfn-lint
-nodeenv==1.9.0
+nodeenv==1.9.1
     # via pre-commit
 notebook==7.2.0
     # via jupyter
@@ -375,7 +377,7 @@ ply==3.11
 pre-commit==3.7.1
 prometheus-client==0.20.0
     # via jupyter-server
-prompt-toolkit==3.0.45
+prompt-toolkit==3.0.46
     # via ipython
     # via jupyter-console
 psutil==5.9.8
@@ -399,8 +401,10 @@ pycparser==2.22
     # via cffi
 pydantic==2.7.3
     # via aws-sam-translator
+    # via pydantic-extra-types
 pydantic-core==2.18.4
     # via pydantic
+pydantic-extra-types==2.8.0
 pygments==2.18.0
     # via ipython
     # via jupyter-console
@@ -412,7 +416,7 @@ pymdown-extensions==10.8.1
     # via mkdocstrings
 pyparsing==3.1.2
     # via moto
-pytest==8.2.1
+pytest==8.2.2
     # via pytest-cov
     # via pytest-env
     # via pytest-xdist
@@ -422,12 +426,14 @@ pytest-xdist==3.6.1
 python-dateutil==2.9.0.post0
     # via arrow
     # via botocore
+    # via freezegun
     # via ghp-import
     # via jsii
     # via jupyter-client
     # via moto
 python-json-logger==2.0.7
     # via jupyter-events
+python-ulid==2.6.0
 pyyaml==6.0.1
     # via cfn-lint
     # via jsonschema-path
@@ -546,6 +552,7 @@ types-pyyaml==6.0.12.20240311
 types-s3transfer==0.10.1
     # via boto3-stubs
 typing-extensions==4.12.1
+    # via aws-lambda-powertools
     # via aws-sam-translator
     # via jsii
     # via mypy
