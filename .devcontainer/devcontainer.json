@@ -1,5 +1,5 @@
 {
-  "name": "Dune",
+  "name": "python",
   "image": "buildpack-deps:latest",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
