@@ -5,10 +5,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-
-from src.chat.domain.thread import AbstractThreadRepository, Thread
+from chat.domain.post import AbstractPostRepository, Post
+from chat.domain.thread import AbstractThreadRepository, Thread
+from chat.shared.exceptions import PostNotFoundError, ThreadNotFoundError
 
 if TYPE_CHECKING:
+    from datetime import datetime
+
     from ulid import ULID
 
 
@@ -45,6 +48,8 @@ class InMemoryThreadRepository(AbstractThreadRepository):
         Args:
             id_: The ID of the thread to delete.
         """
+        if id_ not in self._threads:
+            raise ThreadNotFoundError(id_)
         del self._threads[id_]
 
 
@@ -52,3 +57,49 @@ class InMemoryThreadRepository(AbstractThreadRepository):
 def thread_repository() -> InMemoryThreadRepository:
     """Fixture for an in-memory thread repository."""
     return InMemoryThreadRepository()
+
+
+class InMemoryPostRepository(AbstractPostRepository):
+    """In-memory implementation of the AbstractPostRepository interface."""
+
+    def __init__(self) -> None:
+        """Initialize the repository."""
+        self._threads: dict[ULID, Thread] = {}
+        self._posts: dict[ULID, Post] = {}
+
+    def save(self, post: Post) -> None:
+        """Save the given Post instance to the repository.
+
+        Args:
+            post: The Post instance to be saved.
+        """
+        self._posts[post.id_] = post
+
+    def list_by_thread_id(self, thread_id: ULID, start: datetime | None = None) -> list[Post]:
+        """Find all Post instances by the thread ID.
+
+        Args:
+            thread_id: The ULID of the thread to find.
+            start: The timestamp to start listing posts from.
+        """
+        posts = [post for post in self._posts.values() if post.thread_id == thread_id]
+        if start:
+            posts = [post for post in posts if post.created_at >= start]
+
+        return sorted(posts, key=lambda x: x.created_at)
+
+    def delete(self, id_: ULID) -> None:
+        """Delete the post with the given ID.
+
+        Args:
+            id_: The ID of the post to delete.
+        """
+        if id_ not in self._posts:
+            raise PostNotFoundError(id_)
+        del self._posts[id_]
+
+
+@pytest.fixture()
+def post_repository() -> InMemoryPostRepository:
+    """Fixture for an in-memory post repository."""
+    return InMemoryPostRepository()

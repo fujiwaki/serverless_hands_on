@@ -9,3 +9,7 @@ class ThreadExistsError(Exception):
 
 class ThreadNotFoundError(Exception):
     """Raised when a thread is not found in the repository."""
+
+
+class PostNotFoundError(Exception):
+    """Raised when a post is not found in the repository."""

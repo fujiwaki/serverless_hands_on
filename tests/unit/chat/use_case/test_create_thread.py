@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import pytest
 from chat.domain.thread import Thread
 from chat.shared.exceptions import ThreadExistsError
-from chat.use_case.create_thread import CreateThread, CreateThreadCommand
+from chat.use_case import CreateThread, CreateThreadCommand
 
 if TYPE_CHECKING:
     from tests.unit.chat.conftest import InMemoryThreadRepository
@@ -17,14 +17,12 @@ if TYPE_CHECKING:
 class TestCreateThread:
     """Unit tests for the CreateThread use case."""
 
-    def test_execute_success(self, thread_repository: InMemoryThreadRepository) -> None:
+    def test_execute_successful(self, thread_repository: InMemoryThreadRepository) -> None:
         """Test the successful execution of the use case."""
         command = CreateThreadCommand(name="New Thread")
         use_case = CreateThread(thread_repository)
 
-        actual = use_case.execute(command)
-
-        assert actual is None
+        use_case.execute(command)
 
     def test_execute_with_existent_thread_name(self, thread_repository: InMemoryThreadRepository) -> None:
         """Test the execution of the use case with an existent thread name."""
@@ -37,4 +35,12 @@ class TestCreateThread:
         use_case = CreateThread(thread_repository)
 
         with pytest.raises(ThreadExistsError, match="Thread1"):
+            use_case.execute(command)
+
+    def test_execute_with_empty_thread_name(self, thread_repository: InMemoryThreadRepository) -> None:
+        """Test the execution of the use case with an empty thread name."""
+        command = CreateThreadCommand(name="")
+        use_case = CreateThread(thread_repository)
+
+        with pytest.raises(ValueError, match=r".*empty.*"):
             use_case.execute(command)

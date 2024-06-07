@@ -2,19 +2,17 @@
 
 from __future__ import annotations
 
+from pydantic import BaseModel, ConfigDict
+
 from chat.domain.thread import AbstractThreadRepository, ThreadBuilder
 
 
-class CreateThreadCommand:
+class CreateThreadCommand(BaseModel):
     """Command to create a new thread."""
 
-    def __init__(self, name: str) -> None:
-        """Initialize the command.
+    model_config = ConfigDict(extra="forbid", validate_assignment=True)
 
-        Args:
-            name: The name of the thread to create.
-        """
-        self.name = name
+    name: str
 
 
 class CreateThread:
@@ -33,6 +31,10 @@ class CreateThread:
 
         Args:
             command: The command to execute.
+
+        Raises:
+            ValueError: If the thread name is empty.
+            ThreadExistsError: If a thread with the same name already exists.
         """
         thread = ThreadBuilder(self._repository).build(command.name)
         self._repository.save(thread)

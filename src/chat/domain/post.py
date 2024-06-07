@@ -1,4 +1,4 @@
-""""""
+"""This module defines the Post model and related classes."""
 
 from __future__ import annotations
 
@@ -58,11 +58,15 @@ class AbstractPostRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def list_by_thread_id(self, thread_id: ULID) -> list[Post]:
-        """Find all Post instances by the thread ID.
+    def list_by_thread_id(self, thread_id: ULID, start: datetime | None) -> list[Post]:
+        """List all posts with the specified thread ID.
+
+        This method retrieves a list of Post instances that belong to the specified thread ID.
+        The posts are listed starting from the specified timestamp.
 
         Args:
             thread_id: The ULID of the thread to find.
+            start: The timestamp to start listing posts from.
 
         Returns:
             A list of Post instances with the specified thread ID.
@@ -73,11 +77,11 @@ class AbstractPostRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def delete_by_id(self, id_: ULID) -> None:
-        """Delete a Post instance by its ID.
+    def delete(self, id_: ULID) -> None:
+        """Delete the Post with the given ID.
 
         Args:
-            id_: The ULID of the post to delete.
+            id_: The ID of the post to delete.
 
         Raises:
             NotImplementedError: If the subclass does not implement this method.

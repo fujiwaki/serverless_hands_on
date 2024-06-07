@@ -29,7 +29,17 @@ class Thread(BaseModel):
     @field_validator("name")
     @classmethod
     def name_must_not_be_empty(cls, name: str) -> str:
-        """Validate that the name is not empty."""
+        """Validate that the name is not empty.
+
+        Args:
+            name: The name to validate.
+
+        Returns:
+            The name if it is not empty.
+
+        Raises:
+            ValueError: If the name is empty.
+        """
         if not name:
             error_message = "The thread name must not be empty."
             raise ValueError(error_message)
@@ -107,6 +117,12 @@ class ThreadBuilder:
 
         Args:
             name: The name of the thread.
+
+        Returns:
+            The built Thread instance.
+
+        Raises:
+            ThreadExistsError: If a thread with the given name already exists.
         """
         threads = self._repository.list_all()
         if any(thread.name == name for thread in threads):
