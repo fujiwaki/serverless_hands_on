@@ -6,6 +6,7 @@ copyright: Copyright &copy; 2024 Yasuhiro Fujiwaki
 nav:
   - Home: index.md
   - Reference: reference/
+  - Coverage: coverage.md
 
 theme:
   name: material
@@ -36,6 +37,8 @@ plugins:
           options:
             merge_init_into_class: true
             show_signature_annotations: true
+  - coverage:
+      html_report_dir: docs/htmlcov
 
 markdown_extensions:
   - abbr

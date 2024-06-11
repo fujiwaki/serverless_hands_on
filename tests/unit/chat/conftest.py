@@ -64,7 +64,6 @@ class InMemoryPostRepository(AbstractPostRepository):
 
     def __init__(self) -> None:
         """Initialize the repository."""
-        self._threads: dict[ULID, Thread] = {}
         self._posts: dict[ULID, Post] = {}
 
     def save(self, post: Post) -> None:
@@ -86,7 +85,7 @@ class InMemoryPostRepository(AbstractPostRepository):
         if start:
             posts = [post for post in posts if post.created_at >= start]
 
-        return sorted(posts, key=lambda x: x.created_at)
+        return posts
 
     def delete(self, id_: ULID) -> None:
         """Delete the post with the given ID.

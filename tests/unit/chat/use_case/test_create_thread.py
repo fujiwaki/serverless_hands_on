@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import pytest
 from chat.domain.thread import Thread
 from chat.shared.exceptions import ThreadExistsError
-from chat.use_case import CreateThread, CreateThreadCommand
+from chat.use_case import CreateThread, CreateThreadCommand, ThreadDTO
 
 if TYPE_CHECKING:
     from tests.unit.chat.conftest import InMemoryThreadRepository
@@ -22,7 +22,10 @@ class TestCreateThread:
         command = CreateThreadCommand(name="New Thread")
         use_case = CreateThread(thread_repository)
 
-        use_case.execute(command)
+        actual = use_case.execute(command)
+
+        assert isinstance(actual, ThreadDTO)
+        assert actual.name == "New Thread"
 
     def test_execute_with_existent_thread_name(self, thread_repository: InMemoryThreadRepository) -> None:
         """Test the execution of the use case with an existent thread name."""

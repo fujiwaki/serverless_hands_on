@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 import pytest
 from chat.domain.thread import Thread
 from chat.shared.exceptions import ThreadNotFoundError
-from chat.use_case import CreatePost, CreatePostCommand
+from chat.use_case import CreatePost, CreatePostCommand, PostDTO
 
 if TYPE_CHECKING:
     from tests.unit.chat.conftest import InMemoryPostRepository, InMemoryThreadRepository
@@ -28,7 +28,11 @@ class TestCreatePost:
         command = CreatePostCommand(thread_id="01DXF6DT000000000000000000", message="New Message")
         use_case = CreatePost(thread_repository, post_repository)
 
-        use_case.execute(command)
+        actual = use_case.execute(command)
+
+        assert isinstance(actual, PostDTO)
+        assert actual.thread_id == thread_id
+        assert actual.message == "New Message"
 
     def test_execute_with_nonexistent_thread(
         self, thread_repository: InMemoryThreadRepository, post_repository: InMemoryPostRepository

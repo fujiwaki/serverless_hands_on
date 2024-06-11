@@ -47,4 +47,10 @@ class TestGetThreads:
             ),
         ]
 
-        assert set(actual) == set(expected)
+        assert actual == expected
+
+    def test_execute_with_no_threads(self, thread_repository: InMemoryThreadRepository) -> None:
+        """Test the execution of the use case with no threads."""
+        actual = GetThreads(thread_repository).execute()
+
+        assert actual == []

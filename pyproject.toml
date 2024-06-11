@@ -23,6 +23,7 @@ dev-dependencies = [
     "freezegun",
     "jupyter",
     "mkdocs",
+    "mkdocs-coverage",
     "mkdocs-gen-files",
     "mkdocs-literate-nav",
     "mkdocs-material",
@@ -96,7 +97,7 @@ addopts = [
     "-ra",
     "-vv",
     "--cov=src",
-    "--cov-report=html:tests/coverage",
+    "--cov-report=html:docs/htmlcov",
     "-n",
     "auto",
 ]

@@ -6,6 +6,8 @@ from pydantic import BaseModel, ConfigDict
 
 from chat.domain.thread import AbstractThreadRepository, ThreadBuilder
 
+from .dto import ThreadDTO
+
 
 class CreateThreadCommand(BaseModel):
     """Command to create a new thread."""
@@ -26,7 +28,7 @@ class CreateThread:
         """
         self._repository = repository
 
-    def execute(self, command: CreateThreadCommand) -> None:
+    def execute(self, command: CreateThreadCommand) -> ThreadDTO:
         """Execute the use case.
 
         Args:
@@ -38,3 +40,5 @@ class CreateThread:
         """
         thread = ThreadBuilder(self._repository).build(command.name)
         self._repository.save(thread)
+
+        return ThreadDTO.from_model(thread)

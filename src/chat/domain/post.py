@@ -58,7 +58,7 @@ class AbstractPostRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def list_by_thread_id(self, thread_id: ULID, start: datetime | None) -> list[Post]:
+    def list_by_thread_id(self, thread_id: ULID, *, start: datetime | None = None) -> list[Post]:
         """List all posts with the specified thread ID.
 
         This method retrieves a list of Post instances that belong to the specified thread ID.

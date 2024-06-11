@@ -9,6 +9,8 @@ from ulid import ULID  # noqa: TCH002
 
 from chat.domain.post import AbstractPostRepository, PostBuilder
 
+from .dto import PostDTO
+
 if TYPE_CHECKING:
     from chat.domain.thread import AbstractThreadRepository
 
@@ -29,12 +31,13 @@ class CreatePost:
         """Initialize the use case.
 
         Args:
-            thread_repository:
+            thread_repository: The repository to use for thread operations.
+            post_repository: The repository to use for post operations.
         """
         self._thread_repository = thread_repository
         self._post_repository = post_repository
 
-    def execute(self, command: CreatePostCommand) -> None:
+    def execute(self, command: CreatePostCommand) -> PostDTO:
         """Execute the use case.
 
         Args:
@@ -45,3 +48,5 @@ class CreatePost:
         """
         post = PostBuilder(self._thread_repository).build(command.thread_id, command.message)
         self._post_repository.save(post)
+
+        return PostDTO.from_model(post)
