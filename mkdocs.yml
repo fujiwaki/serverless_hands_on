@@ -17,6 +17,11 @@ theme:
   font:
     text: Fira Sans
     code: Fira Code
+  features:
+    - navigation.tabs
+    - navigation.top
+    - toc.follow
+    - toc.integrate
 
 extra_css:
   - stylesheets/code_select.css
