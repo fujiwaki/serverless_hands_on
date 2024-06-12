@@ -16,7 +16,12 @@ if TYPE_CHECKING:
 
 
 class CreatePostCommand(BaseModel):
-    """Command to create a new post."""
+    """Command to create a new post.
+
+    Attributes:
+        thread_id: The ID of the thread that the post belongs to.
+        message: The message of the post.
+    """
 
     model_config = ConfigDict(extra="forbid", validate_assignment=True)
 

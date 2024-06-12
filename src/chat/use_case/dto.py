@@ -20,7 +20,13 @@ class DTOBase(BaseModel):
 
 
 class ThreadDTO(DTOBase):
-    """DTO for thread."""
+    """DTO for thread.
+
+    Attributes:
+        id_: The ID of the thread.
+        name: The name of the thread.
+        created_at: The timestamp when the thread was created.
+    """
 
     id_: ULID
     name: str
@@ -40,7 +46,14 @@ class ThreadDTO(DTOBase):
 
 
 class PostDTO(DTOBase):
-    """DTO for post."""
+    """DTO for post.
+
+    Attributes:
+        id_: The ID of the post.
+        thread_id: The ID of the thread to which the post belongs.
+        message: The message of the post.
+        created_at: The timestamp when the post was created.
+    """
 
     id_: ULID
     thread_id: ULID

@@ -55,9 +55,6 @@ class AbstractThreadRepository(ABC):
 
         Args:
             thread: The Thread instance to be saved.
-
-        Raises:
-            NotImplementedError: If the subclass does not implement this method.
         """
         raise NotImplementedError
 
@@ -70,9 +67,6 @@ class AbstractThreadRepository(ABC):
 
         Returns:
             The Thread instance corresponding to the given ULID.
-
-        Raises:
-            NotImplementedError: If the subclass does not implement this method.
         """
         raise NotImplementedError
 
@@ -82,9 +76,6 @@ class AbstractThreadRepository(ABC):
 
         Returns:
             A list of Thread objects representing all threads.
-
-        Raises:
-            NotImplementedError: If the subclass does not implement this method.
         """
         raise NotImplementedError
 
@@ -96,7 +87,7 @@ class AbstractThreadRepository(ABC):
             id_: The ID of the thread to delete.
 
         Raises:
-            NotImplementedError: If the subclass does not implement this method.
+            ThreadNotFoundError: If the thread with the given ID does not exist.
         """
         raise NotImplementedError
 

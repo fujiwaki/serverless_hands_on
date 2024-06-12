@@ -12,7 +12,11 @@ if TYPE_CHECKING:
 
 
 class DeleteThreadCommand(BaseModel):
-    """Command to delete a thread."""
+    """Command to delete a thread.
+
+    Attributes:
+        thread_id: The ID of the thread to delete.
+    """
 
     model_config = ConfigDict(extra="forbid", validate_assignment=True)
 

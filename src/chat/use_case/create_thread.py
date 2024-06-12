@@ -10,7 +10,11 @@ from .dto import ThreadDTO
 
 
 class CreateThreadCommand(BaseModel):
-    """Command to create a new thread."""
+    """Command to create a new thread.
+
+    Attributes:
+        name: The name of the thread.
+    """
 
     model_config = ConfigDict(extra="forbid", validate_assignment=True)
 

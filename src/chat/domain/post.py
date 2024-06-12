@@ -51,9 +51,6 @@ class AbstractPostRepository(ABC):
 
         Args:
             post: The Post instance to be saved.
-
-        Raises:
-            NotImplementedError: If the subclass does not implement this method.
         """
         raise NotImplementedError
 
@@ -70,21 +67,19 @@ class AbstractPostRepository(ABC):
 
         Returns:
             A list of Post instances with the specified thread ID.
-
-        Raises:
-            NotImplementedError: If the subclass does not implement this method.
         """
         raise NotImplementedError
 
     @abstractmethod
-    def delete(self, id_: ULID) -> None:
+    def delete(self, thread_id: ULID, post_id: ULID) -> None:
         """Delete the Post with the given ID.
 
         Args:
-            id_: The ID of the post to delete.
+            thread_id: The ID of the thread that the post belongs to.
+            post_id: The ID of the post to delete.
 
         Raises:
-            NotImplementedError: If the subclass does not implement this method.
+            PostNotFoundError: If the post with the given ID does not exist.
         """
         raise NotImplementedError
 

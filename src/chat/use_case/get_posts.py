@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime  # noqa: TCH003
 from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, ConfigDict
@@ -15,7 +15,12 @@ if TYPE_CHECKING:
 
 
 class GetPostsCommand(BaseModel):
-    """Command to get posts."""
+    """Command to get posts.
+
+    Attributes:
+        thread_id: The ID of the thread to get posts from.
+        start_time: The timestamp to start getting posts from.
+    """
 
     model_config = ConfigDict(extra="forbid", validate_assignment=True)
 

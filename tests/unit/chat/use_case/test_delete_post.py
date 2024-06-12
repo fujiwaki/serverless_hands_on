@@ -28,15 +28,16 @@ class TestDeletePost:
         )
         post_repository.save(post)
 
-        command = DeletePostCommand(post_id="01DXHRTH000000000000000000")
+        command = DeletePostCommand(thread_id=thread_id, post_id="01DXHRTH000000000000000000")
         use_case = DeletePost(post_repository)
 
         use_case.execute(command)
 
     def test_execute_with_nonexistent_post(self, post_repository: InMemoryPostRepository) -> None:
         """Test the execution of the use case with a non-existent post."""
+        thread_id = "01DXF6DT000000000000000000"
         post_id = "01DXHRTH000000000000000000"
-        command = DeletePostCommand(post_id=post_id)
+        command = DeletePostCommand(thread_id=thread_id, post_id=post_id)
         use_case = DeletePost(post_repository)
 
         with pytest.raises(PostNotFoundError):

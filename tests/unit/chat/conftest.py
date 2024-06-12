@@ -87,15 +87,19 @@ class InMemoryPostRepository(AbstractPostRepository):
 
         return posts
 
-    def delete(self, id_: ULID) -> None:
+    def delete(self, thread_id: ULID, post_id: ULID) -> None:  # noqa: ARG002
         """Delete the post with the given ID.
 
         Args:
-            id_: The ID of the post to delete.
+            thread_id: The ID of the thread that the post belongs to.
+            post_id: The ID of the post to delete.
+
+        Raises:
+            PostNotFoundError: If the post with the given ID does not exist.
         """
-        if id_ not in self._posts:
-            raise PostNotFoundError(id_)
-        del self._posts[id_]
+        if post_id not in self._posts:
+            raise PostNotFoundError(post_id)
+        del self._posts[post_id]
 
 
 @pytest.fixture()
