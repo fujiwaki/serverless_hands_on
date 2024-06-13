@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from chat.domain.thread import AbstractThreadRepository
 
 
-class GetThreads:
+class ListThreads:
     """Use case for getting threads."""
 
     def __init__(self, repository: AbstractThreadRepository) -> None:

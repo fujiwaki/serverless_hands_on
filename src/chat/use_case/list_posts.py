@@ -14,12 +14,12 @@ if TYPE_CHECKING:
     from chat.domain.post import AbstractPostRepository
 
 
-class GetPostsCommand(BaseModel):
-    """Command to get posts.
+class ListPostsCommand(BaseModel):
+    """Command to list posts.
 
     Attributes:
-        thread_id: The ID of the thread to get posts from.
-        start_time: The timestamp to start getting posts from.
+        thread_id: The ID of the thread to list posts from.
+        start_time: The start time to list posts from.
     """
 
     model_config = ConfigDict(extra="forbid", validate_assignment=True)
@@ -28,7 +28,7 @@ class GetPostsCommand(BaseModel):
     start_time: datetime | None = None
 
 
-class GetPosts:
+class ListPosts:
     """Use case for getting posts.
 
     This use case retrieves posts from a specific thread identified by the thread_id.
@@ -43,7 +43,7 @@ class GetPosts:
         """
         self._repository = repository
 
-    def execute(self, command: GetPostsCommand) -> list[PostDTO]:
+    def execute(self, command: ListPostsCommand) -> list[PostDTO]:
         """Execute the use case.
 
         Args:

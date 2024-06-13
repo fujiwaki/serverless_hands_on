@@ -7,11 +7,12 @@ from typing import TYPE_CHECKING
 from pydantic import BaseModel, ConfigDict
 from ulid import ULID  # noqa: TCH002
 
-from chat.domain.post import AbstractPostRepository, PostBuilder
+from chat.domain.builders import PostBuilder
 
 from .dto import PostDTO
 
 if TYPE_CHECKING:
+    from chat.domain.post import AbstractPostRepository
     from chat.domain.thread import AbstractThreadRepository
 
 

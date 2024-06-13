@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from datetime import UTC, datetime
+from datetime import datetime  # noqa: TCH003
 
 from pydantic import BaseModel, ConfigDict, field_validator
-from ulid import ULID
-
-from chat.shared.exceptions import ThreadExistsError
+from ulid import ULID  # noqa: TCH002
 
 
 class Thread(BaseModel):
@@ -90,32 +88,3 @@ class AbstractThreadRepository(ABC):
             ThreadNotFoundError: If the thread with the given ID does not exist.
         """
         raise NotImplementedError
-
-
-class ThreadBuilder:
-    """Builder for the Thread model."""
-
-    def __init__(self, repository: AbstractThreadRepository) -> None:
-        """Initialize the ThreadBuilder instance.
-
-        Args:
-            repository: The repository to use for thread operations.
-        """
-        self._repository = repository
-
-    def build(self, name: str) -> Thread:
-        """Build the Thread instance.
-
-        Args:
-            name: The name of the thread.
-
-        Returns:
-            The built Thread instance.
-
-        Raises:
-            ThreadExistsError: If a thread with the given name already exists.
-        """
-        threads = self._repository.list_all()
-        if any(thread.name == name for thread in threads):
-            raise ThreadExistsError(name)
-        return Thread(id_=ULID(), name=name, created_at=datetime.now(tz=UTC))
