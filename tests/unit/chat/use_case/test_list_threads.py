@@ -1,4 +1,4 @@
-"""Unit tests for the GetThreads use case."""
+"""Unit tests for the ListThreads use case."""
 
 from __future__ import annotations
 
@@ -6,14 +6,14 @@ from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from chat.domain.thread import Thread
-from chat.use_case import GetThreads, ThreadDTO
+from chat.use_case import ListThreads, ThreadDTO
 
 if TYPE_CHECKING:
     from tests.unit.chat.conftest import InMemoryThreadRepository
 
 
-class TestGetThreads:
-    """Unit tests for the GetThreads use case."""
+class TestListThreads:
+    """Unit tests for the ListThreads use case."""
 
     def test_execute_successful(self, thread_repository: InMemoryThreadRepository) -> None:
         """Test the successful execution of the use case."""
@@ -32,7 +32,7 @@ class TestGetThreads:
         for thread in threads:
             thread_repository.save(thread)
 
-        actual = GetThreads(thread_repository).execute()
+        actual = ListThreads(thread_repository).execute()
 
         expected = [
             ThreadDTO(
@@ -51,6 +51,6 @@ class TestGetThreads:
 
     def test_execute_with_no_threads(self, thread_repository: InMemoryThreadRepository) -> None:
         """Test the execution of the use case with no threads."""
-        actual = GetThreads(thread_repository).execute()
+        actual = ListThreads(thread_repository).execute()
 
         assert actual == []
