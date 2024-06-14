@@ -38,6 +38,7 @@ class ThreadBuilder:
         threads = self._repository.list_all()
         if any(thread.name == name for thread in threads):
             raise ThreadExistsError(name)
+
         return Thread(id_=ULID(), name=name, created_at=datetime.now(tz=UTC))
 
 

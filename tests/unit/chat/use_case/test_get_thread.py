@@ -1,4 +1,4 @@
-""""""
+"""Unit tests for the GetThread use case."""
 
 from __future__ import annotations
 
@@ -20,7 +20,6 @@ class TestGetThread:
         thread_id = "01DXF6DT000000000000000000"
         thread = Thread(id_=thread_id, name="Test Thread", created_at=datetime(2020, 1, 1, 1, 1, 1, 1, tzinfo=UTC))
         thread_repository.save(thread)
-        print(thread_repository._threads)
 
         command = GetThreadCommand(thread_id=thread_id)
         use_case = GetThread(thread_repository)

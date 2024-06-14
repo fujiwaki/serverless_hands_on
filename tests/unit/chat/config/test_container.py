@@ -1,8 +1,10 @@
+"""Tests for the Container class."""
+
 from __future__ import annotations
 
 from chat.config.container import Container
 from chat.infrastructure import DynamoDBPostRepository, DynamoDBThreadRepository
-from chat.use_case import CreatePost, CreateThread, DeletePost, DeleteThread, ListPosts, ListThreads
+from chat.use_case import CreatePost, CreateThread, DeletePost, DeleteThread, GetThread, ListPosts, ListThreads
 
 
 class TestConatiner:
@@ -44,6 +46,14 @@ class TestConatiner:
         use_case = container.create_thread
 
         assert isinstance(use_case, CreateThread)
+        assert isinstance(use_case._repository, DynamoDBThreadRepository)
+
+    def test_get_thread(self) -> None:
+        """Test that it returns a GetThread instance."""
+        container = Container("table_name")
+        use_case = container.get_thread
+
+        assert isinstance(use_case, GetThread)
         assert isinstance(use_case._repository, DynamoDBThreadRepository)
 
     def test_list_threads(self) -> None:

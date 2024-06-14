@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import boto3
 
 from chat.infrastructure import DynamoDBPostRepository, DynamoDBThreadRepository
-from chat.use_case import CreatePost, CreateThread, DeletePost, DeleteThread, ListPosts, ListThreads
+from chat.use_case import CreatePost, CreateThread, DeletePost, DeleteThread, GetThread, ListPosts, ListThreads
 
 if TYPE_CHECKING:
     from mypy_boto3_dynamodb.service_resource import Table
@@ -51,6 +51,13 @@ class Container:
         if not hasattr(self, "_create_thread"):
             self._create_thread = CreateThread(self.thread_repository)
         return self._create_thread
+
+    @property
+    def get_thread(self) -> GetThread:
+        """The get thread use case instance."""
+        if not hasattr(self, "_get_thread"):
+            self._get_thread = GetThread(self.thread_repository)
+        return self._get_thread
 
     @property
     def list_threads(self) -> ListThreads:

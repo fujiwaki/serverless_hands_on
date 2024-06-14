@@ -1,4 +1,4 @@
-"""Configuration for chat infrastructure unit tests."""
+"""Configuration for integration tests."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 
 import boto3
 import pytest
+from aws_lambda_powertools.utilities.typing import LambdaContext
 from moto import mock_aws
 
 if TYPE_CHECKING:
@@ -62,3 +63,15 @@ def _create_table(aws: Iterator[DynamoDBClient]) -> None:  # noqa: ARG001
 def table(aws: Iterator[DynamoDBClient], _create_table: None) -> Table:  # noqa: ARG001
     """Fixture for the DynamoDB table."""
     return boto3.resource("dynamodb").Table(os.environ["TABLE_NAME"])
+
+
+@pytest.fixture()
+def context() -> LambdaContext:
+    """Fixture for the Lambda context."""
+    context = LambdaContext()
+    context._function_name = "test"
+    context._memory_limit_in_mb = 128
+    context._invoked_function_arn = "arn:aws:lambda:eu-west-1:123456789012:function:test"
+    context._aws_request_id = "da658bd3-2d6f-4e7b-8ec2-937234644fdc"
+
+    return context

@@ -106,7 +106,7 @@ addopts = [
 [tool.pytest_env]
 SERVICE_NAME = "chat"
 TABLE_NAME = "chat"
-AWS_DEFAULT_REGION = "ap-northeast-1"
+AWS_DEFAULT_REGION = "us-east-1"
 
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]

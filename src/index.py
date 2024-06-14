@@ -1,4 +1,4 @@
-"""Lambda function entrypoint."""
+"""Lambda function entrypoint."""  # noqa: INP001
 
 import os
 from typing import Any
@@ -12,8 +12,8 @@ from routers import thread
 
 logger = Logger(service=os.environ["SERVICE_NAME"])
 
-app = ApiGatewayResolver()
-app.include_router(thread.router, prefix="/thread")
+app = ApiGatewayResolver(enable_validation=True)
+app.include_router(thread.router, prefix="/threads")
 
 container = Container(os.environ["TABLE_NAME"])
 
